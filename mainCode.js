@@ -22,8 +22,7 @@ btn_removeAll.addEventListener("click", function(onRemoveAllClick){
 
 btn_restartTurn.addEventListener("click", function(OnRestartTurnClick){
     OnRestartTurnClick.preventDefault();
-    turn=1;
-    txt_turn.innerHTML = turn;
+    restartTurn();
 });
 
 function createNewObject(){
@@ -80,6 +79,7 @@ function deleteObject(targetArray, targetName) {
     combatObject.splice(index, 1);
     
     setTableTexts();
+    checkTurnPass();
 }
 
 function restartCombat(){
@@ -91,6 +91,7 @@ function restartCombat(){
     }
     turn = 1;
     txt_turn.innerHTML = turn;
+    setTableTexts();
 }
 
 function checkTurnPass(){
@@ -114,4 +115,10 @@ function restoreCheckboxValues(){
     combatObject.forEach(row => {
         row.checkbox.checked = false;
     });
+}
+
+function restartTurn(){
+    turn=1;
+    txt_turn.innerHTML = turn;
+    restoreCheckboxValues();
 }
