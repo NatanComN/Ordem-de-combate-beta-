@@ -115,12 +115,3 @@ function restoreCheckboxValues(){
         row.checkbox.checked = false;
     });
 }
-
-/*
-0* - Sortear a array;
-1* - Fazer uma cópia do restartCombat, mas reiniciando somente UM objeto (botar eventListener no botão de remover);
-2* - Checar se tudo foi pressionado com os checkbox (botar eventListener tbm);
-3* - Colocar a tabela em si;
-4 - Não perder as informações no refresh do site;
-
-*/
