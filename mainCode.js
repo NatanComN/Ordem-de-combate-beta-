@@ -29,20 +29,24 @@ function createNewObject(){
     const newName = document.getElementById("btn_characterName").value;
     const newIniciative = Number(document.getElementById("btn_characterInitiative").value);
 
-    const newRemoveButton = document.createElement("input"); newRemoveButton.type="submit"; newRemoveButton.value="remover " + newName; document.body.appendChild(newRemoveButton);
-    newRemoveButton.addEventListener("click", function(onRemoveClick){
-        onRemoveClick.preventDefault();
-        deleteObject(combatObject, newName);
-    });
-
-    const newCheckbox = document.createElement("input"); newCheckbox.type="checkbox"; document.body.appendChild(newCheckbox);
-    newCheckbox.addEventListener("click", function(onCheckboxClick){
-        checkTurnPass();
-    });
-
+    if(newName!=="") {
+        const newRemoveButton = document.createElement("input"); newRemoveButton.type="submit"; newRemoveButton.value="remover " + newName; document.body.appendChild(newRemoveButton);
+        newRemoveButton.addEventListener("click", function(onRemoveClick){
+            onRemoveClick.preventDefault();
+            deleteObject(combatObject, newName);
+        });
     
-    newObject = {name: newName, iniciative: newIniciative, removeButton: newRemoveButton, checkbox: newCheckbox};
-    combatObject.push(newObject);
+        const newCheckbox = document.createElement("input"); newCheckbox.type="checkbox"; document.body.appendChild(newCheckbox);
+        newCheckbox.addEventListener("click", function(onCheckboxClick){
+            checkTurnPass();
+        });
+    
+        
+        newObject = {name: newName, iniciative: newIniciative, removeButton: newRemoveButton, checkbox: newCheckbox};
+        combatObject.push(newObject);
+    } else {
+        alert("Insira um nome antes de adicionar um personagem ao combate");
+    }
 }
 
 function sortObjects(){
