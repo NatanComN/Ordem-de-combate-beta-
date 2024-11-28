@@ -5,36 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordem de combate</title>
 
+    <link rel="stylesheet" href="defaultStyle.css">
     <script src="mainCode.js" defer></script>
 </head>
 <body>
-    <div> <br>
+    <span> <br>
         <form action="">
-            <input type="text" id="btn_characterName" placeholder="nome do personagem">
-            <input type="number" id="btn_characterInitiative" placeholder="iniciativa">
-            <input type="submit" id="btn_sendValues" value="enviar">
+            <input type="text" id="btn_characterName" placeholder="nome do personagem" class="defaultInputfield"> <br>
+            <input type="number" id="btn_characterInitiative" placeholder="iniciativa" class="defaultInputfield"> <br>
+            <input type="submit" id="btn_sendValues" value="enviar" class="defaultButton"> <br>
         </form>
-    </div>
+    </span>
 
-    <div> <br>
-        <h1>Turno:<div id="txt_turn">1</div></h1>
-    </div>
+    <span id="txt_turn"> <br>
+        <h1>Turno:&nbsp;<span id="txt_turnNumber">1</span></h1>
+    </span>
    
-    <div> <br>
-        <table id="mainTable" border="3">
+    <span> <br>
+        <table id="mainTable" border = 3px>
             <tr class="doNotDelete">
                 <th> <h3>Nome</h3> </th> <th> <h3>Iniciativa</h3> </th>
             </tr>
         </table>
-    </div>
+    </span>
 
-    <div> <br>
-        <input type="submit" id="btn_restart" value="apagar tudo">
-    </div>
+    <span> <br>
+        <input type="submit" id="btn_restart" value="apagar tudo" class="defaultButton">
+    </span>
 
-    <div> <br>
-        <input type="submit" id="btn_restartTurn" value="reiniciar turno">
-    </div>
+    <span> <br>
+        <input type="submit" id="btn_restartTurn" value="reiniciar turno" class="defaultButton">
+    </span>
 
 </body>
 </html>

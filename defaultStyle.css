@@ -1,0 +1,37 @@
+body {
+    background-color: rgb(80, 80, 80);
+}
+
+h1, h3, p{
+    color: rgb(128, 128, 255);
+}
+
+.defaultButton {
+    background-color: rgb(82, 82, 82);
+    color: rgb(255, 76, 76);
+    border: 3px solid black;;
+
+    text-align: center;
+}
+
+.defaultInputfield {
+    background-color: rgb(165, 165, 165);
+    color: rgb(82, 82, 82);
+    border: 3px solid black;
+
+    text-align: center;
+}
+
+.defaultInputfield::placeholder{
+    color: rgb(82, 82, 82);
+
+    text-align: center;
+}
+
+#mainTable{
+    border: 3px solid rgb(0, 0, 0);
+}
+
+tr {
+    text-align: center;
+}

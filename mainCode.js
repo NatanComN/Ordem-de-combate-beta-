@@ -1,11 +1,15 @@
 let combatObject = [];
 
+const mainTable = document.getElementById("mainTable");
+
 const btn_sendValues = document.getElementById("btn_sendValues");
 const btn_removeAll = document.getElementById("btn_restart");
 const btn_restartTurn = document.getElementById("btn_restartTurn");
 
 let turn = 1;
-let txt_turn = document.getElementById("txt_turn");
+let txt_turn = document.getElementById("txt_turnNumber");
+
+tableCentralize();
 
 btn_sendValues.addEventListener("click", function(recieveValues){
     recieveValues.preventDefault();
@@ -29,8 +33,16 @@ function createNewObject(){
     const newName = document.getElementById("btn_characterName").value;
     const newIniciative = Number(document.getElementById("btn_characterInitiative").value);
 
+    /*
+    combatObject.forEach(row =>{
+        if (newName == row.name){
+            alert("Insira um nome diferente");
+        }
+    });
+    */
+   
     if(newName!=="") {
-        const newRemoveButton = document.createElement("input"); newRemoveButton.type="submit"; newRemoveButton.value="remover " + newName; document.body.appendChild(newRemoveButton);
+        const newRemoveButton = document.createElement("input"); newRemoveButton.type="submit"; newRemoveButton.value="-"; document.body.appendChild(newRemoveButton);
         newRemoveButton.addEventListener("click", function(onRemoveClick){
             onRemoveClick.preventDefault();
             deleteObject(combatObject, newName);
@@ -44,7 +56,8 @@ function createNewObject(){
         
         newObject = {name: newName, iniciative: newIniciative, removeButton: newRemoveButton, checkbox: newCheckbox};
         combatObject.push(newObject);
-    } else {
+    } 
+    else {
         alert("Insira um nome antes de adicionar um personagem ao combate");
     }
 }
@@ -59,15 +72,18 @@ function setTableTexts(){
         row.remove();
     });
 
-    const mainTable = document.getElementById("mainTable");
-
     combatObject.forEach(row => {
-        newTr = document.createElement("tr"); newTr.className="toDelete"; mainTable.appendChild(newTr);
+        newTr = document.createElement("tr"); newTr.classList.add("toDelete"); mainTable.appendChild(newTr); newTr.id=row.name;
         //tr
         
-        newTd1 = document.createElement("td"); newTr.appendChild(newTd1); newTd1.innerHTML = row.name;
-        newTd2 = document.createElement("td"); newTr.appendChild(newTd2); newTd2.innerHTML = row.iniciative;
+        newTd1 = document.createElement("td"); newTr.appendChild(newTd1); newTd1.innerHTML = row.name; newTd1.classList.add("defaultTd");
+        newTd2 = document.createElement("td"); newTr.appendChild(newTd2); newTd2.innerHTML = row.iniciative; newTd2.classList.add("defaultTd");
         //tds
+    });
+    tableCentralize();
+    combatObject.forEach(row => {
+        putCheckboxAside(row.checkbox, document.getElementById(row.name));
+        putRemoveButtonAside(row.removeButton, document.getElementById(row.name));
     });
 }
 
@@ -126,3 +142,70 @@ function restartTurn(){
     txt_turn.innerHTML = turn;
     restoreCheckboxValues();
 }
+
+//#region style functions
+
+function debugTrPosition(tr){
+    trRect = tr.getBoundingClientRect();
+    console.log("grossura: " + trRect.width);
+}
+
+function putCheckboxAside(elementoMovel, elementoFixo){
+    const tableRect = mainTable.getBoundingClientRect();
+    const fixoRect = elementoFixo.getBoundingClientRect();
+    const movelRect = elementoMovel.getBoundingClientRect();
+    
+    const novaPosicao = [
+        tableRect.right + movelRect.width,
+        fixoRect.top + fixoRect.height/2 - movelRect.height/2
+    ];
+    
+    elementoMovel.style.position = "absolute";
+    elementoMovel.style.left = novaPosicao[0] + "px";
+    elementoMovel.style.top = novaPosicao[1] + "px";
+}
+
+function putRemoveButtonAside(elementoMovel, elementoFixo){
+    const tableRect = mainTable.getBoundingClientRect();
+    const fixoRect = elementoFixo.getBoundingClientRect();
+    const movelRect = elementoMovel.getBoundingClientRect();
+    
+    const novaPosicao = [
+        tableRect.right + movelRect.width,
+        fixoRect.top + fixoRect.height/2 - movelRect.height/2
+    ];
+    
+    elementoMovel.style.position = "absolute";
+    elementoMovel.style.right = novaPosicao[0] + "px";
+    elementoMovel.style.top = novaPosicao[1] + "px";
+}
+
+function tableCentralize(){
+    const tableRect = mainTable.getBoundingClientRect();
+
+    mainTable.style.position = "absolute";
+    mainTable.style.top = "140px";
+    mainTable.style.right = window.innerWidth/2 - tableRect.width/2 + "px";
+
+    adjustFixedElements();
+}
+
+function adjustFixedElements(){
+    const txt_turn = document.getElementById("txt_turn");
+
+    const DefaultborderDistance = "15px";
+
+    txt_turn.style.position = "absolute";
+    txt_turn.style.top = DefaultborderDistance;
+    txt_turn.style.left = window.innerWidth/2 - txt_turn.getBoundingClientRect().width/2 + "px";
+
+    btn_restartTurn.style.position = "absolute";
+    btn_restartTurn.style.left = DefaultborderDistance;
+    btn_restartTurn.style.bottom = DefaultborderDistance;
+
+    btn_removeAll.style.position = "absolute";
+    btn_removeAll.style.right = DefaultborderDistance;
+    btn_removeAll.style.bottom = DefaultborderDistance;
+}
+
+//#endregion
