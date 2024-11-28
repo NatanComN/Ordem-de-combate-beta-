@@ -124,19 +124,21 @@ function restartCombat(){
 }
 
 function checkTurnPass(){
-    let canPassTurn = true;
+    if (combatObject.length>0){
+        let canPassTurn = true;
 
-    combatObject.forEach(row => {
-        
-        if (!row.checkbox.checked) {
-            canPassTurn = false;
+        combatObject.forEach(row => {
+            
+            if (!row.checkbox.checked) {
+                canPassTurn = false;
+            }
+        });
+    
+        if (canPassTurn) {
+            turn++;
+            txt_turn.innerHTML = turn;
+            restoreCheckboxValues();
         }
-    });
-
-    if (canPassTurn) {
-        turn++;
-        txt_turn.innerHTML = turn;
-        restoreCheckboxValues();
     }
 }
 
