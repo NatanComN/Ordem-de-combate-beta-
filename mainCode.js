@@ -11,6 +11,10 @@ let txt_turn = document.getElementById("txt_turnNumber");
 
 tableCentralize();
 
+window.addEventListener("resize", function() {
+    tableCentralize();
+});
+
 btn_sendValues.addEventListener("click", function(recieveValues){
     recieveValues.preventDefault();
     createNewObject();
@@ -33,15 +37,23 @@ function createNewObject(){
     const newName = document.getElementById("btn_characterName").value;
     const newIniciative = Number(document.getElementById("btn_characterInitiative").value);
 
-    /*
+    let sameName = false;
     combatObject.forEach(row =>{
         if (newName == row.name){
-            alert("Insira um nome diferente");
+            sameName = true;
         }
     });
-    */
    
-    if(newName!=="") {
+    if (newName === ""){
+        alert("Insira um nome antes de adicionar um personagem ao combate");
+    }
+    else if (newName.length >= 30){
+        alert("Insira um nome menor");
+    }
+    else if (sameName === true){
+        alert("Insira um nome diferente");
+    }
+    else{
         const newRemoveButton = document.createElement("input"); newRemoveButton.type="submit"; newRemoveButton.value="-"; document.body.appendChild(newRemoveButton);
         newRemoveButton.addEventListener("click", function(onRemoveClick){
             onRemoveClick.preventDefault();
@@ -56,9 +68,6 @@ function createNewObject(){
         
         newObject = {name: newName, iniciative: newIniciative, removeButton: newRemoveButton, checkbox: newCheckbox};
         combatObject.push(newObject);
-    } 
-    else {
-        alert("Insira um nome antes de adicionar um personagem ao combate");
     }
 }
 
